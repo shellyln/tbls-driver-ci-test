@@ -32,3 +32,10 @@ jobs:
 
     - name: Run tbls for generate database document
       run: tbls doc
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      with:
+        name: my-artifact
+        path: doc/schema
+        retention-days: 1
