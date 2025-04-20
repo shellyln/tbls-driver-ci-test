@@ -1,0 +1,34 @@
+name: Test
+
+on: [push, pull_request]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    name: Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        go-version: ['1.24.x']
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ matrix.go-version }}
+
+    - name: Set up tbls
+      uses: k1low/setup-tbls@v1
+
+    - name: Set up driver
+      run: go install github.com/shellyln/tbls-driver-sf-cli-meta@latest
+
+    - name: Run tbls for generate database document
+      run: tbls doc
