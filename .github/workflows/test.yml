@@ -36,6 +36,6 @@ jobs:
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
-        name: my-artifact
+        name: my-artifact-${{ matrix.os }}
         path: doc/schema
         retention-days: 1
